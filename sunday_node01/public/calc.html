@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>/public/calc.html</title>
+</head>
+
+<body>
+
+    <h2>Nodejs 웹 계산기</h2>
+    <hr>
+    <input type="text" id="x">
+    <input type="text" id="y">
+    <select id="op">
+        <option value="plus">plus</option>
+        <option value="minus">minus</option>
+        <option value="multi">multi</option>
+        <option value="div">div</option>
+    </select>
+    <input type="button" id="okBtn" value="결과확인" />
+    <hr>
+    <div id="result">결과: </div>
+
+    <script>
+        var x = document.querySelector("#x");
+        var y = document.querySelector("#y");
+        var op = document.querySelector("#op");
+        var okBtn = document.querySelector("#okBtn");
+        
+        //console.log(x, y, op, okBtn);
+        okBtn.onclick = function() {
+            var url = "http://localhost:3000/";
+            url += op.value + "/" + x.value + "/" + y.value;
+            
+            //console.log(url);
+            
+            // Ajax 객체 선언
+            var xhr = new XMLHttpRequest();
+            //console.log(xhr);
+            
+            xhr.onreadystatechange = function() {
+                if(this.readyState==4 && this.status==200) {
+                   //console.log(this.responseText);
+                    var result = document.querySelector("#result");
+                    result.innerHTML = "결과 : " + this.responseText
+                }
+            }
+            // method, url, [true/false]
+            xhr.open("GET", url, true);
+            
+            xhr.send(null);
+        };
+    </script>
+
+</body>
+
+</html>
