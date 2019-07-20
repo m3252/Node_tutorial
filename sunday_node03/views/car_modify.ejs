@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+   <h1>자동차 상세정보 수정페이지</h1>
+    <form action="/car/<%=car._id%>/modify" method="POST">
+       <table width="500" border="1">
+            <tr>
+                <th>모델명</th>
+                <td><input type="text" name="name" value="<%=car.name%>"></td>
+            </tr>
+            <tr>
+                <th>가격</th>
+                <td><input type="text" name="price" value="<%=car.price%>"></td>
+            </tr>
+            <tr>
+                <th>제조사</th>
+                <td><input type="text" name="company" value="<%=car.company%>"></td>
+            </tr>
+            <tr>
+                <th>연식</th>
+                <td><input type="text" name="year" value="<%=car.year%>"></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="submit" value="수정하기">
+                </td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>

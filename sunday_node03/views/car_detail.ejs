@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>/views/car_detail.ejs</title>
+</head>
+<body>
+   
+   <h1>차송차 정보 상세보기 페이지</h1>
+   <hr>
+   <%
+    //console.log(car);
+    %>
+    <table width="500" border="1">
+        <tr>
+            <th>모델명</th>
+            <td><%=car.name%></td>
+        </tr>
+        <tr>
+            <th>가격</th>
+            <td><%=car.price%></td>
+        </tr>
+        <tr>
+            <th>제조사</th>
+            <td><%=car.company%></td>
+        </tr>
+        <tr>
+            <th>연식</th>
+            <td><%=car.year%></td>
+        </tr>
+    </table>
+    <a href="/car/list">목록</a>
+    <a href="/car/<%=car._id%>/modify">수정</a>
+    <a href="/car/<%=car._id%>/delete">삭제</a>
+</body>
+</html>

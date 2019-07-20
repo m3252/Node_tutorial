@@ -1,0 +1,37 @@
+<!--car_list.ejs-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>/views/car_list.ejs</title>
+</head>
+
+<body>
+
+    <h1>자동차 목록</h1>
+    <hr>
+    <table border="1" width="90%">
+        <tr>
+            <th>제품명</th>
+            <th>가격</th>
+            <th>제조사</th>
+            <th>연식</th>
+        </tr>
+        <%
+        for(var car of carList) {
+        %>
+        <tr>
+            <td><a href="/car/<%=car._id%>/detail"><%=car.name%></a></td>
+            <td><%=car.price%></td>
+            <td><%=car.company%></td>
+            <td><%=car.year%></td>
+        </tr>
+        <%
+        } // end of for
+        %>
+    </table>
+    <a href="/car/insert">자동추가</a>
+</body>
+
+</html>

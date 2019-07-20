@@ -1,0 +1,133 @@
+[[Firebase 활용노트 3.Auth 회원가입]]
+
+
+현재 url을 가져와서 url에 'login'이 포함 되었다면 메인페이지로 넘긴다.
+
+
+
+로그아웃 기능 추가
+	> /public/index.html 페이지에 logout 기능 추가
+
+
+function logout() {
+    firebase.auth().signOut().then(function () {
+        // Sign-out successful.
+    }).catch(function (error) {
+        // An error happened.
+    });
+}
+
+
+
+$(document).ready(function ($) {
+    // 로그인 로그아웃시 콜백으로 호출 된다.
+    firebase.auth().onAuthStateChanged(function (user) {
+        var cu = window.location.href;
+        var n1 = cu.indexOf('auth/login');
+        if (user) {
+            if(n1>1){
+                console.log('log', user);
+                window.open('../../', '_self', false);
+            }
+        } else {
+            if(n1<1) {
+                console.log('err', 'not yet');
+                window.open('./auth/login/', '_self', false);
+            }
+        }
+    });
+});
+
+
+
+
+
+## 회원 가입 기능 구현
+
+### /public/auth/login/index/html 파일에 회원가입 버튼을 단다.
+
+<div class="footer text-center">
+	<a onclick="login()" class="btn btn-primary btn-link btn-wd btn-lg">Get Started</a>
+	<a onclick="signup()" class="btn btn-primary btn-link btn-wd btn-lg">Sign Up</a>
+</div>
+
+
+
+
+### /public/assets/js/auth.js 파일에 singup() 함수를 추가한다.
+
+function signup() {
+    firebase.auth().createUserWithEmailAndPassword($('#txtemail').val(), $('#txtpasswd').val()).then(
+        function (user) {
+            console.log(user);
+        }
+    ).catch(function (error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // ...
+    });
+}
+
+
+
+
+
+
+### 로그인 시 이메일 주소 표시
+
+#### index.html에 추가
+    <nav id="menu">
+        <ul class="links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="generic.html">Generic</a></li>
+            <li><a href="elements.html">Elements</a></li>
+            <li><a onclick="logout()">Logout</a></li>
+            <li><span id="lblemail">로그인 전</span></li>
+        </ul>
+    </nav>
+
+
+
+#### /public/assets/js/auth.js 파일에 text() 기능 추가한다.
+
+$(document).ready(function ($) {
+    // 로그인 로그아웃시 콜백으로 호출 된다.
+    firebase.auth().onAuthStateChanged(function (user) {
+        var cu = window.location.href;
+        var n1 = cu.indexOf('auth/login');
+        if (user) {
+            if (n1 > 1) {
+                console.log('log', user);
+                window.open('../../', '_self', false);
+                $('#lblemail').text(user.email + "님 반갑습니다.");
+            }
+        } else {
+            if (n1 < 1) {
+                console.log('err', 'not yet');
+                window.open('./auth/login/', '_self', false);
+            }
+        }
+    });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
